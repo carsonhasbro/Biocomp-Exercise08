@@ -1,0 +1,56 @@
+### Problem 1: Generate a line plot of the score-by-score information from the file "UWvMSU_1-22-13.txt"
+
+# Load the data in as a data frame
+
+scores<-read.table("UWvMSU_1-22-13.txt", header = TRUE)
+
+UWscores<-scores$score[scores$team=="UW"]
+MSUscores<-scores$score[scores$team=="MSU"]
+
+# Find the rolling cumulative scores for each team throughout the game
+
+for (i in 1:length(UWscores)){
+    UWcumulativescores[i]<-sum(UWscores[1:i])
+  }
+for(i in 1:length(MSUscores)){
+    MSUcumulativescores[i]<-sum(MSUscores[1:i])
+  }
+
+# Find the times of each score for each team throughout the game
+
+UWscoretimes<-scores$time[scores$team=="UW"]
+MSUscoretimes<-scores$time[scores$team=="MSU"]
+
+# Plot the data using the plot function
+
+plot(UWscoretimes,UWcumulativescores,type='l', main="UW vs. MSU", xlab="Time Score Was Made", ylab="Rolling Scores",col="firebrick3")
+lines(MSUscoretimes,MSUcumulativescores,col="darkolivegreen")
+
+
+### Problem 2: Write a game called "guess my number"  The computer will generate a random number between 1 and 100. The user types in a number and the computer replies “lower” if the random number is lower than the guess, “higher” if the random number is higher, and “correct!” if the guess is correct. The player can continue guessing up to 10 times.
+
+# Write code that generates a random number between 1 and 100
+
+randomnumber<-floor(runif(1, min=0, max=101))
+
+# Generate a for loop that contains if-else statements to show whether the number guessed is higher, lower, or equal to the random number
+# Also write a line in which the user inputs their guess (only allow them to guess 10 times as well)
+
+print("I'm thinking of a number between 1 and 100...")
+for(i in 1:10){
+  readline(prompt="Guess: ")->x
+if(x>randomnumber){
+  print("Lower...")
+}else if(x<randomnumber){
+  print("Higher...")
+}else{
+  print("Correct!")
+  break
+}
+  }
+if(x==randomnumber){
+  print("You Win!")
+}else{
+  print("Better Luck Next Time!")
+}
+
